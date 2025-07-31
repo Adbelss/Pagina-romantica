@@ -1,0 +1,103 @@
+📸 INSTRUCCIONES PARA LAS FOTOS - PÁGINA DE ANYELL ❤️
+
+===========================================
+ESTRUCTURA DE FOTOS RECOMENDADA
+===========================================
+
+Esta carpeta debe contener EXACTAMENTE estos 6 archivos de imagen:
+
+1. primer-encuentro.jpg
+   📍 DESCRIPCIÓN: Foto del primer día que se conocieron
+   📍 EJEMPLO: Primera cita, primer día en la universidad, etc.
+   📍 TAMAÑO RECOMENDADO: 600x400 píxeles
+
+2. aventuras.jpg
+   📍 DESCRIPCIÓN: Foto de algún viaje o aventura juntos
+   📍 EJEMPLO: Viaje a la playa, excursión, paseo, etc.
+   📍 TAMAÑO RECOMENDADO: 600x400 píxeles
+
+3. risas.jpg
+   📍 DESCRIPCIÓN: Foto donde estén riendo o felices
+   📍 EJEMPLO: Momentos divertidos, risas, alegría
+   📍 TAMAÑO RECOMENDADO: 600x400 píxeles
+
+4. foto-principal.jpg
+   📍 DESCRIPCIÓN: Tu foto principal especial
+   📍 EJEMPLO: La foto que más te representa, tu favorita
+   📍 TAMAÑO RECOMENDADO: 600x400 píxeles
+
+5. celebraciones.jpg
+   📍 DESCRIPCIÓN: Foto de alguna celebración
+   📍 EJEMPLO: Cumpleaños, aniversario, fiesta, etc.
+   📍 TAMAÑO RECOMENDADO: 600x400 píxeles
+
+6. futuro.jpg
+   📍 DESCRIPCIÓN: Foto que represente su futuro juntos
+   📍 EJEMPLO: Planes, sueños, momentos especiales
+   📍 TAMAÑO RECOMENDADO: 600x400 píxeles
+
+===========================================
+FORMATOS ACEPTADOS
+===========================================
+
+✅ .jpg (recomendado)
+✅ .jpeg
+✅ .png
+✅ .gif (incluso animados)
+✅ .webp (mejor calidad)
+
+===========================================
+CONSEJOS PARA FOTOS PERFECTAS
+===========================================
+
+🎯 CALIDAD:
+   - Usa fotos de buena resolución
+   - Evita fotos borrosas o muy oscuras
+   - Preferiblemente fotos donde se vean bien ambos
+
+🎯 COMPOSICIÓN:
+   - Fotos horizontales o cuadradas funcionan mejor
+   - Evita fotos muy verticales
+   - Asegúrate de que ambos estén en la foto
+
+🎯 TAMAÑO:
+   - Ancho: 400-800 píxeles
+   - Alto: 300-600 píxeles
+   - Tamaño de archivo: menos de 2MB por foto
+
+===========================================
+PASOS PARA AGREGAR LAS FOTOS
+===========================================
+
+1. 📁 Coloca tus 6 fotos en esta carpeta
+2. 📝 Renómbralas EXACTAMENTE como se indica arriba
+3. 💻 Abre el archivo script.js en la carpeta principal
+4. 🔍 Busca las líneas comentadas al final del archivo
+5. ✏️ Descomenta las líneas de addPhotoToMemoryCard
+6. 💾 Guarda el archivo script.js
+7. 🌐 Recarga la página en tu navegador
+
+===========================================
+EJEMPLO DE CÓDIGO A DESCOMENTAR
+===========================================
+
+En script.js, busca y descomenta estas líneas:
+
+addPhotoToMemoryCard(0, 'fotos/primer-encuentro.jpg', 'Nuestro Primer Encuentro', 'El día que te vi por primera vez, supe que mi vida cambiaría para siempre...');
+addPhotoToMemoryCard(1, 'fotos/aventuras.jpg', 'Aventuras Compartidas', 'Cada aventura contigo ha sido mágica, llena de risas y recuerdos que atesoro en mi corazón...');
+addPhotoToMemoryCard(2, 'fotos/risas.jpg', 'Risas y Alegría', 'Tu sonrisa ilumina mis días y hace que cada momento a tu lado sea perfecto...');
+addPhotoToMemoryCard(3, 'fotos/foto-principal.jpg', 'Mi Foto Principal', 'Esta foto representa todo lo que eres para mí: mi amor, mi felicidad, mi todo...');
+addPhotoToMemoryCard(4, 'fotos/celebraciones.jpg', 'Celebraciones', 'Cada carta que escribí para ti está llena del amor más puro y sincero que siento...');
+addPhotoToMemoryCard(5, 'fotos/futuro.jpg', 'Nuestro Futuro', 'Contigo quiero construir un futuro hermoso lleno de amor eterno...');
+
+===========================================
+¡LISTO! 🎉
+===========================================
+
+Una vez que hayas colocado las fotos y descomentado el código,
+la página mostrará automáticamente tus fotos especiales con Anyell
+en la sección "Nuestros Recuerdos Más Preciados".
+
+¡Que disfrutes creando esta página especial para tu princesa! ❤️
+
+- Creado por Adbel para Anyell - 

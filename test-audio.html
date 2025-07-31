@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Audio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        button {
+            background: linear-gradient(135deg, #e91e63, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎵 Test de Audio</h1>
+        <p>Esta página prueba si el archivo de música funciona correctamente.</p>
+        
+        <div class="status" id="status">
+            Estado: Cargando...
+        </div>
+        
+        <button onclick="playMusic()">▶️ Reproducir Música</button>
+        <button onclick="pauseMusic()">⏸️ Pausar Música</button>
+        <button onclick="checkAudio()">🔍 Verificar Audio</button>
+        
+        <div class="status" id="info">
+            Información del audio aparecerá aquí...
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="background-music" loop>
+        <source src="music/sample.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const status = document.getElementById('status');
+        const info = document.getElementById('info');
+        
+        function updateStatus(message) {
+            status.textContent = 'Estado: ' + message;
+            console.log(message);
+        }
+        
+        function updateInfo(message) {
+            info.innerHTML = message;
+        }
+        
+        // Eventos del audio
+        audio.addEventListener('loadeddata', () => {
+            updateStatus('Archivo cargado correctamente');
+            updateInfo(`
+                <strong>Archivo:</strong> music/sample.mp3<br>
+                <strong>Duración:</strong> ${Math.round(audio.duration)} segundos<br>
+                <strong>Volumen:</strong> ${audio.volume * 100}%
+            `);
+        });
+        
+        audio.addEventListener('play', () => {
+            updateStatus('Reproduciendo música');
+        });
+        
+        audio.addEventListener('pause', () => {
+            updateStatus('Música pausada');
+        });
+        
+        audio.addEventListener('ended', () => {
+            updateStatus('Música terminada (debería reiniciarse)');
+        });
+        
+        audio.addEventListener('error', (e) => {
+            updateStatus('Error al cargar el audio');
+            updateInfo(`<strong>Error:</strong> ${e.message || 'Error desconocido'}`);
+        });
+        
+        function playMusic() {
+            audio.volume = 0.3;
+            audio.play().then(() => {
+                updateStatus('Música iniciada manualmente');
+            }).catch(error => {
+                updateStatus('Error al reproducir: ' + error.message);
+            });
+        }
+        
+        function pauseMusic() {
+            audio.pause();
+            updateStatus('Música pausada manualmente');
+        }
+        
+        function checkAudio() {
+            updateInfo(`
+                <strong>Estado actual:</strong><br>
+                - Pausado: ${audio.paused}<br>
+                - Tiempo actual: ${Math.round(audio.currentTime)}s<br>
+                - Duración: ${Math.round(audio.duration)}s<br>
+                - Volumen: ${Math.round(audio.volume * 100)}%<br>
+                - Listo: ${audio.readyState}<br>
+                - Error: ${audio.error ? audio.error.message : 'Ninguno'}
+            `);
+        }
+        
+        // Intentar reproducir automáticamente
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatus('Página cargada, intentando reproducción automática...');
+            
+            setTimeout(() => {
+                audio.volume = 0.3;
+                audio.play().then(() => {
+                    updateStatus('Reproducción automática exitosa');
+                }).catch(error => {
+                    updateStatus('Reproducción automática bloqueada - haz click en "Reproducir Música"');
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 

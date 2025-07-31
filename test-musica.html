@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Música Sintética</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        button {
+            background: linear-gradient(135deg, #e91e63, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎵 Test de Música Sintética</h1>
+        <p>Esta página prueba si la música sintética funciona correctamente.</p>
+        
+        <div class="status" id="status">
+            Estado: Iniciando...
+        </div>
+        
+        <button onclick="testSyntheticMusic()">🎵 Probar Música Sintética</button>
+        <button onclick="testFileMusic()">📁 Probar Música de Archivo</button>
+        <button onclick="checkAudioSupport()">🔍 Verificar Soporte de Audio</button>
+        
+        <div class="status" id="info">
+            Información del audio aparecerá aquí...
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="background-music" loop>
+        <source src="music/sample.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const status = document.getElementById('status');
+        const info = document.getElementById('info');
+        
+        function updateStatus(message, type = 'normal') {
+            status.textContent = 'Estado: ' + message;
+            status.className = 'status ' + type;
+            console.log(message);
+        }
+        
+        function updateInfo(message) {
+            info.innerHTML = message;
+        }
+        
+        // Función para crear música sintética
+        function createSyntheticMusic() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                // Configurar el oscilador para crear un tono romántico
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Nota A4
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime + 2); // Nota C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 4); // Nota E5
+                
+                // Configurar el volumen
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.5);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 8);
+                
+                // Conectar los nodos
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Iniciar y detener
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 8);
+                
+                return audioContext;
+            } catch (error) {
+                console.error('Error al crear música sintética:', error);
+                return null;
+            }
+        }
+        
+        function testSyntheticMusic() {
+            updateStatus('Probando música sintética...');
+            
+            const audioContext = createSyntheticMusic();
+            if (audioContext) {
+                updateStatus('✅ Música sintética funcionando correctamente', 'success');
+                updateInfo(`
+                    <strong>Música Sintética:</strong><br>
+                    ✅ Web Audio API soportada<br>
+                    ✅ Oscilador creado<br>
+                    ✅ Tono romántico generado<br>
+                    ✅ Volumen controlado<br>
+                    ✅ Duración: 8 segundos
+                `);
+            } else {
+                updateStatus('❌ Error al crear música sintética', 'error');
+                updateInfo(`
+                    <strong>Error:</strong><br>
+                    ❌ Web Audio API no soportada<br>
+                    ❌ No se pudo crear el contexto de audio
+                `);
+            }
+        }
+        
+        function testFileMusic() {
+            updateStatus('Probando música de archivo...');
+            
+            if (audio) {
+                audio.volume = 0.3;
+                audio.play().then(() => {
+                    updateStatus('✅ Música de archivo funcionando', 'success');
+                    updateInfo(`
+                        <strong>Archivo de Música:</strong><br>
+                        ✅ Archivo encontrado<br>
+                        ✅ Reproducción exitosa<br>
+                        ✅ Volumen: 30%<br>
+                        ✅ Loop activado
+                    `);
+                }).catch(error => {
+                    updateStatus('❌ Error al reproducir archivo', 'error');
+                    updateInfo(`
+                        <strong>Error:</strong><br>
+                        ❌ Archivo no encontrado o corrupto<br>
+                        ❌ ${error.message}<br>
+                        💡 Coloca un archivo MP3 en music/sample.mp3
+                    `);
+                });
+            }
+        }
+        
+        function checkAudioSupport() {
+            updateStatus('Verificando soporte de audio...');
+            
+            let supportInfo = '<strong>Soporte de Audio:</strong><br>';
+            
+            // Verificar Web Audio API
+            if (window.AudioContext || window.webkitAudioContext) {
+                supportInfo += '✅ Web Audio API soportada<br>';
+            } else {
+                supportInfo += '❌ Web Audio API no soportada<br>';
+            }
+            
+            // Verificar elemento audio
+            if (audio) {
+                supportInfo += '✅ Elemento audio soportado<br>';
+            } else {
+                supportInfo += '❌ Elemento audio no soportado<br>';
+            }
+            
+            // Verificar autoplay
+            audio.play().then(() => {
+                supportInfo += '✅ Autoplay permitido<br>';
+                audio.pause();
+            }).catch(() => {
+                supportInfo += '❌ Autoplay bloqueado<br>';
+            });
+            
+            updateStatus('✅ Verificación completada', 'success');
+            updateInfo(supportInfo);
+        }
+        
+        // Verificar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatus('Página cargada, listo para probar');
+            updateInfo('Haz click en los botones para probar diferentes funciones de audio');
+        });
+    </script>
+</body>
+</html> 

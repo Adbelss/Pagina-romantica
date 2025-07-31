@@ -1,0 +1,114 @@
+🌐 OPCIONES PARA SUBIR TU PÁGINA A LA WEB 🌐
+
+✅ OPCIONES GRATUITAS Y FÁCILES:
+
+1. 🚀 NETLIFY (RECOMENDADO):
+   ✅ Totalmente gratuito
+   ✅ Subida directa desde carpeta
+   ✅ URL personalizada
+   ✅ HTTPS automático
+   ✅ Muy fácil de usar
+
+2. 🌟 GITHUB PAGES:
+   ✅ Gratuito
+   ✅ Integrado con GitHub
+   ✅ URL: tuusuario.github.io/nombre-repo
+   ✅ Perfecto para proyectos
+
+3. 📁 VERCEL:
+   ✅ Gratuito
+   ✅ Muy rápido
+   ✅ Subida directa
+   ✅ URL personalizada
+
+4. 🎯 FIREBASE HOSTING:
+   ✅ Gratuito (Google)
+   ✅ Muy confiable
+   ✅ URL personalizada
+   ✅ Fácil de configurar
+
+🚀 NETLIFY - PASOS DETALLADOS (MÁS FÁCIL):
+
+1. ✅ PREPARA TU CARPETA:
+   - Asegúrate de que todos los archivos estén en la carpeta pagina_novios
+   - Verifica que index.html esté en la raíz
+
+2. ✅ VE A NETLIFY:
+   - Abre: https://netlify.com
+   - Haz click en "Sign up" (registrarse)
+   - Puedes usar tu cuenta de Google
+
+3. ✅ SUBE TU CARPETA:
+   - Haz click en "Add new site"
+   - Selecciona "Deploy manually"
+   - Arrastra tu carpeta pagina_novios
+   - Espera a que se suba
+
+4. ✅ OBTÉN TU URL:
+   - Netlify te dará una URL como: https://random-name.netlify.app
+   - Puedes cambiar el nombre en Settings > Site information
+
+5. ✅ PERSONALIZA (OPCIONAL):
+   - Ve a Settings > Site information
+   - Cambia el nombre del sitio
+   - La URL será: https://tu-nombre.netlify.app
+
+🎯 GITHUB PAGES - PASOS:
+
+1. ✅ CREA UN REPOSITORIO:
+   - Ve a github.com
+   - Crea un nuevo repositorio
+   - Nombra: pagina-novios
+
+2. ✅ SUBE TUS ARCHIVOS:
+   - Sube todos los archivos de tu carpeta
+   - Asegúrate de que index.html esté en la raíz
+
+3. ✅ ACTIVA GITHUB PAGES:
+   - Ve a Settings > Pages
+   - Selecciona "Deploy from a branch"
+   - Elige "main" branch
+   - Tu URL será: https://tuusuario.github.io/pagina-novios
+
+📁 VERCEL - PASOS:
+
+1. ✅ VE A VERCEL:
+   - Abre: https://vercel.com
+   - Regístrate con tu cuenta de GitHub
+
+2. ✅ IMPORTA TU PROYECTO:
+   - Haz click en "New Project"
+   - Sube tu carpeta pagina_novios
+   - Vercel detectará automáticamente que es HTML
+
+3. ✅ OBTÉN TU URL:
+   - Vercel te dará una URL automática
+   - Puedes personalizarla en Settings
+
+🎵 CONSIDERACIONES PARA LA MÚSICA:
+
+⚠️ IMPORTANTE - ARCHIVOS DE MÚSICA:
+- Los archivos MP3 se subirán con la página
+- Asegúrate de que tu archivo sample.mp3 esté en la carpeta music/
+- El tamaño del archivo afectará la velocidad de carga
+
+✅ RECOMENDACIÓN FINAL:
+- Usa NETLIFY (más fácil y rápido)
+- Sube tu carpeta completa
+- Tu música funcionará perfectamente
+- URL personalizada gratuita
+
+🌐 DESPUÉS DE SUBIR:
+
+1. ✅ PRUEBA TODO:
+   - Verifica que la página cargue
+   - Prueba la música
+   - Revisa las fotos
+   - Prueba en móvil
+
+2. ✅ COMPARTE:
+   - Envía la URL a tu novia
+   - Funciona en cualquier dispositivo
+   - Accesible desde cualquier lugar
+
+¡Tu página romántica estará disponible en internet! 💕🌐 
