@@ -549,42 +549,29 @@ function playFileMusic() {
 // Función para reproducir música
 function playMusic() {
     const musicButton = document.querySelector('.music-button');
+    const backgroundMusic = document.getElementById('background-music');
     
     if (!isPlaying) {
-        // Intentar reproducir archivo real primero
-        playFileMusic().then(success => {
-            if (success) {
-                // Archivo real funcionó
+        // Reproducir archivo sample.mp3
+        if (backgroundMusic) {
+            backgroundMusic.volume = 0.3;
+            backgroundMusic.play().then(() => {
                 isPlaying = true;
                 musicButton.classList.add('playing');
                 musicButton.innerHTML = '<i class="fas fa-pause"></i><span>⏸️ Pausar Música</span>';
-                console.log('✅ Música del archivo reproduciéndose');
-            } else {
-                // Usar música sintética como respaldo
-                console.log('🔄 Usando música sintética como respaldo...');
-                if (createSyntheticMusic()) {
-                    isPlaying = true;
-                    musicButton.classList.add('playing');
-                    musicButton.innerHTML = '<i class="fas fa-pause"></i><span>⏸️ Pausar Música</span>';
-                    console.log('✅ Música sintética iniciada');
-                } else {
-                    alert('No se pudo iniciar la música. Verifica que el archivo esté en music/sample.mp3');
-                }
-            }
-        });
+                console.log('✅ Música sample.mp3 reproduciéndose');
+            }).catch(error => {
+                console.error('❌ Error al reproducir sample.mp3:', error);
+                alert('No se pudo reproducir la música. Verifica que el archivo music/sample.mp3 esté disponible.');
+            });
+        } else {
+            alert('Elemento de audio no encontrado. Verifica que el archivo music/sample.mp3 esté disponible.');
+        }
     } else {
         // Pausar música
-        const backgroundMusic = document.getElementById('background-music');
-        
-        if (backgroundMusic && !backgroundMusic.paused) {
-            // Pausar archivo real
+        if (backgroundMusic) {
             backgroundMusic.pause();
-            console.log('⏸️ Música del archivo pausada');
-        } else if (oscillator) {
-            // Pausar música sintética
-            oscillator.stop();
-            oscillator = null;
-            console.log('⏸️ Música sintética pausada');
+            console.log('⏸️ Música pausada');
         }
         
         isPlaying = false;
@@ -602,18 +589,18 @@ function startMusicOnInteraction() {
 
 // Configurar eventos cuando la página carga
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('✅ Página cargada, música lista para activar');
+    console.log('✅ Página cargada, música sample.mp3 lista para activar');
     
     const backgroundMusic = document.getElementById('background-music');
     
     if (backgroundMusic) {
         // Configurar eventos del archivo de audio
         backgroundMusic.addEventListener('loadeddata', () => {
-            console.log('✅ Archivo de audio cargado correctamente');
+            console.log('✅ Archivo sample.mp3 cargado correctamente');
         });
         
         backgroundMusic.addEventListener('error', (e) => {
-            console.log('❌ Error al cargar archivo de audio, usando música sintética');
+            console.log('❌ Error al cargar sample.mp3');
         });
         
         backgroundMusic.addEventListener('ended', () => {
