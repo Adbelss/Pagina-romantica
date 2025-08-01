@@ -496,6 +496,7 @@ function toggleMusic() {
 // Configurar audio cuando la página carga
 document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('background-music');
+    const voiceAudio = document.getElementById('voice-note');
     
     if (audio) {
         // Evento cuando termina la música (para el loop)
@@ -511,7 +512,59 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error en el archivo de audio:', e);
         });
     }
+    
+    if (voiceAudio) {
+        // Evento cuando termina la nota de voz
+        voiceAudio.addEventListener('ended', () => {
+            const button = document.querySelector('.voice-button');
+            button.classList.remove('playing');
+            button.innerHTML = '<i class="fas fa-microphone"></i><span>🎤 Nota de Voz</span>';
+        });
+        
+        // Evento de error
+        voiceAudio.addEventListener('error', (e) => {
+            console.error('Error en la nota de voz:', e);
+        });
+    }
 });
+
+// Función para reproducir nota de voz
+function playVoiceNote() {
+    const voiceAudio = document.getElementById('voice-note');
+    const button = document.querySelector('.voice-button');
+    
+    if (!voiceAudio) {
+        console.error('Nota de voz no encontrada');
+        return;
+    }
+    
+    // Si ya está reproduciendo, detener
+    if (!voiceAudio.paused) {
+        voiceAudio.pause();
+        voiceAudio.currentTime = 0;
+        button.classList.remove('playing');
+        button.innerHTML = '<i class="fas fa-microphone"></i><span>🎤 Nota de Voz</span>';
+        console.log('Nota de voz detenida');
+        return;
+    }
+    
+    // Reproducir nota de voz
+    voiceAudio.volume = 0.8;
+    voiceAudio.currentTime = 0;
+    
+    voiceAudio.play().then(() => {
+        button.classList.add('playing');
+        button.innerHTML = '<i class="fas fa-stop"></i><span>⏹️ Detener</span>';
+        console.log('Nota de voz reproduciéndose');
+    }).catch(error => {
+        console.error('Error al reproducir nota de voz:', error);
+        if (error.name === 'NotAllowedError') {
+            alert('Haz click en cualquier parte de la página primero, luego presiona el botón de nota de voz');
+        } else {
+            alert('Error al reproducir la nota de voz: ' + error.message);
+        }
+    });
+}
 
 // ========================================
 // AGREGAR FOTOS ESPECIALES CON ANYELL
