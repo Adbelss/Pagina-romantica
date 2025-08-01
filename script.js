@@ -477,74 +477,10 @@ addPhotoToMemoryCard(4, 'fotos/celebraciones.jpg', 'Las Primeras Cartas', 'Cada 
 addPhotoToMemoryCard(5, 'fotos/futuro.jpg', 'Eres Mi Compañera', 'Contigo quiero construir un futuro hermoso lleno de amor eterno...');
 
 // ========================================
-// CONTROL DE MÚSICA CON ARCHIVO REAL
+// CONTROL DE MÚSICA SIMPLE
 // ========================================
 
 let isPlaying = false;
-let audioContext = null;
-let oscillator = null;
-
-// Función para crear música sintética como respaldo
-function createSyntheticMusic() {
-    try {
-        if (!audioContext) {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        
-        if (oscillator) {
-            oscillator.stop();
-        }
-        
-        oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        // Configurar un tono romántico simple
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // La nota A4
-        
-        // Configurar volumen
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.5);
-        
-        // Conectar
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        // Iniciar
-        oscillator.start();
-        
-        // Cambiar frecuencia cada 2 segundos para crear melodía
-        setInterval(() => {
-            if (isPlaying && oscillator) {
-                const frequencies = [440, 523.25, 659.25, 783.99]; // A4, C5, E5, G5
-                const randomFreq = frequencies[Math.floor(Math.random() * frequencies.length)];
-                oscillator.frequency.setValueAtTime(randomFreq, audioContext.currentTime);
-            }
-        }, 2000);
-        
-        return true;
-    } catch (error) {
-        console.error('Error al crear música sintética:', error);
-        return false;
-    }
-}
-
-// Función para reproducir música del archivo
-function playFileMusic() {
-    const backgroundMusic = document.getElementById('background-music');
-    
-    if (backgroundMusic) {
-        backgroundMusic.volume = 0.3;
-        return backgroundMusic.play().then(() => {
-            console.log('🎵 Música del archivo iniciada');
-            return true;
-        }).catch(error => {
-            console.log('❌ Error al reproducir archivo:', error);
-            return false;
-        });
-    }
-    return Promise.resolve(false);
-}
 
 // Función para reproducir música
 function playMusic() {
@@ -580,13 +516,6 @@ function playMusic() {
     }
 }
 
-// Función para iniciar música automáticamente con interacción
-function startMusicOnInteraction() {
-    if (!isPlaying) {
-        playMusic();
-    }
-}
-
 // Configurar eventos cuando la página carga
 document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ Página cargada, música sample.mp3 lista para activar');
@@ -609,10 +538,4 @@ document.addEventListener('DOMContentLoaded', () => {
             backgroundMusic.play();
         });
     }
-    
-    // Intentar iniciar música con cualquier interacción
-    const events = ['click', 'touchstart', 'mousedown', 'keydown'];
-    events.forEach(eventType => {
-        document.addEventListener(eventType, startMusicOnInteraction, { once: true });
-    });
 }); 
