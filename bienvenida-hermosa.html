@@ -277,6 +277,13 @@
 
         <a href="index.html" class="enter-button" onclick="startMusicAndRedirect()">Presiona Aquí</a>
         <p class="help-text">Para descubrir todo mi amor por ti</p>
+        
+        <!-- Botón de respaldo en caso de que el principal no funcione -->
+        <div style="margin-top: 20px;">
+            <a href="index.html" style="color: #e91e63; text-decoration: underline; font-size: 0.9rem;">
+                Si el botón no funciona, haz clic aquí
+            </a>
+        </div>
     </div>
 
     <!-- Audio Player -->
@@ -469,18 +476,38 @@
         function startMusicAndRedirect() {
             console.log('🎵 Iniciando música antes de redirigir...');
             
+            // Mostrar mensaje de carga
+            const button = document.querySelector('.enter-button');
+            if (button) {
+                button.innerHTML = 'Cargando... ❤️';
+                button.style.pointerEvents = 'none';
+            }
+            
             // Iniciar música si no está reproduciéndose
             if (!isPlaying) {
                 playMusic();
             }
             
-            // Redirigir después de un pequeño delay
+            // Redirigir después de un delay más largo para asegurar que funcione
             setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 500);
+                console.log('🔄 Redirigiendo a index.html...');
+                try {
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Error en redirección:', error);
+                    // Respuesta de respaldo
+                    window.location.replace('index.html');
+                }
+            }, 1000);
             
             // Prevenir el comportamiento por defecto del enlace
             return false;
+        }
+        
+        // Función de respaldo para redirección directa
+        function redirectToIndex() {
+            console.log('🔄 Redirección directa a index.html...');
+            window.location.href = 'index.html';
         }
     </script>
 </body>
