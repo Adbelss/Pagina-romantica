@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Música Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            color: white;
+            min-height: 100vh;
+        }
+        .test-container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        .music-button {
+            background: linear-gradient(135deg, #e91e63, #ff6b9d);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .music-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .music-button.playing {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+        .status {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎵 Test Música Simple</h1>
+        <p>Prueba el nuevo sistema de música desde cero</p>
+        
+        <div class="status" id="status">
+            Estado: Esperando interacción...
+        </div>
+        
+        <button class="music-button" onclick="toggleMusic()">
+            <i class="fas fa-music"></i>
+            <span>🎵 Música</span>
+        </button>
+        
+        <audio id="background-music" loop>
+            <source src="music/sample.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div>
+
+    <script>
+        let isMusicPlaying = false;
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = 'Estado: ' + message;
+            console.log(message);
+        }
+        
+        function toggleMusic() {
+            const audio = document.getElementById('background-music');
+            const button = document.querySelector('.music-button');
+            
+            if (!audio) {
+                updateStatus('❌ Audio no encontrado');
+                return;
+            }
+            
+            if (!isMusicPlaying) {
+                // Reproducir música
+                audio.volume = 0.3;
+                audio.play().then(() => {
+                    isMusicPlaying = true;
+                    button.classList.add('playing');
+                    button.innerHTML = '<i class="fas fa-pause"></i><span>⏸️ Pausar</span>';
+                    updateStatus('✅ Música reproduciéndose');
+                }).catch(error => {
+                    updateStatus('❌ Error: ' + error.message);
+                    if (error.name === 'NotAllowedError') {
+                        alert('Haz click en cualquier parte de la página primero');
+                    }
+                });
+            } else {
+                // Pausar música
+                audio.pause();
+                isMusicPlaying = false;
+                button.classList.remove('playing');
+                button.innerHTML = '<i class="fas fa-music"></i><span>🎵 Música</span>';
+                updateStatus('⏸️ Música pausada');
+            }
+        }
+        
+        // Configurar audio
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('background-music');
+            
+            if (audio) {
+                audio.addEventListener('loadeddata', () => {
+                    updateStatus('✅ Archivo de música cargado');
+                });
+                
+                audio.addEventListener('error', (e) => {
+                    updateStatus('❌ Error al cargar archivo de música');
+                });
+                
+                audio.addEventListener('ended', () => {
+                    if (isMusicPlaying) {
+                        audio.currentTime = 0;
+                        audio.play();
+                    }
+                });
+            }
+        });
+        
+        // Habilitar interacción
+        document.addEventListener('click', () => {
+            updateStatus('✅ Interacción de usuario detectada');
+        }, { once: true });
+    </script>
+</body>
+</html> 
