@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Móvil - Botones de Audio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .test-info {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .test-info h1 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+        }
+        
+        .test-info p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Botón de Música */
+        .music-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #e91e63, #ff6b9d);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .music-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.4);
+        }
+
+        .music-button.playing {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .music-button.playing i {
+            animation: musicPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Botón de Nota de Voz */
+        .voice-button {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, #9c27b0, #e91e63);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(156, 39, 176, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .voice-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(156, 39, 176, 0.4);
+        }
+
+        .voice-button.playing {
+            background: linear-gradient(135deg, #ff5722, #f44336);
+        }
+
+        .voice-button.playing i {
+            animation: voicePulse 1s ease-in-out infinite;
+        }
+
+        @keyframes voicePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .music-button {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .voice-button {
+                bottom: 80px;
+                right: 20px;
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .test-info h1 {
+                font-size: 1.2rem;
+            }
+            
+            .test-info p {
+                font-size: 0.8rem;
+            }
+        }
+        
+        .status {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        
+        .content {
+            margin-bottom: 200px; /* Espacio para los botones fijos */
+        }
+        
+        .content p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>📱 Test Móvil - Botones de Audio</h1>
+        <p>Verifica que ambos botones sean visibles en tu dispositivo</p>
+        <p><strong>Botón de Nota de Voz:</strong> Arriba (morado/rosa)</p>
+        <p><strong>Botón de Música:</strong> Abajo (rosa/rojo)</p>
+    </div>
+    
+    <div class="content">
+        <div class="status" id="status">
+            Estado: Esperando interacción...
+        </div>
+        
+        <p>Este es un test para verificar que los botones de audio se vean correctamente en dispositivos móviles.</p>
+        
+        <p>Los botones deberían estar:</p>
+        <ul>
+            <li><strong>Botón de Nota de Voz:</strong> En la esquina inferior derecha, pero arriba del botón de música</li>
+            <li><strong>Botón de Música:</strong> En la esquina inferior derecha, en la parte inferior</li>
+        </ul>
+        
+        <p>Si no ves ambos botones, puede ser un problema de:</p>
+        <ul>
+            <li>Pantalla muy pequeña</li>
+            <li>Zoom del navegador</li>
+            <li>Configuración del dispositivo</li>
+        </ul>
+        
+        <p>Desliza hacia abajo para ver más contenido y verificar que los botones permanezcan fijos.</p>
+        
+        <div style="height: 500px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+            <p>Contenido adicional para probar el scroll</p>
+        </div>
+        
+        <div style="height: 500px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+            <p>Más contenido para verificar que los botones se mantengan fijos</p>
+        </div>
+    </div>
+    
+    <!-- Botón de Música -->
+    <div class="music-button" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+        <span>🎵 Música</span>
+    </div>
+    
+    <!-- Botón de Nota de Voz -->
+    <div class="voice-button" onclick="playVoiceNote()">
+        <i class="fas fa-microphone"></i>
+        <span>🎤 Nota de Voz</span>
+    </div>
+    
+    <audio id="background-music" loop>
+        <source src="music/sample.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
+    <audio id="voice-note">
+        <source src="music/nota-voz.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        let isMusicPlaying = false;
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = 'Estado: ' + message;
+            console.log(message);
+        }
+        
+        function toggleMusic() {
+            const audio = document.getElementById('background-music');
+            const button = document.querySelector('.music-button');
+            
+            if (!audio) {
+                updateStatus('❌ Audio de música no encontrado');
+                return;
+            }
+            
+            if (!isMusicPlaying) {
+                audio.volume = 0.3;
+                audio.play().then(() => {
+                    isMusicPlaying = true;
+                    button.classList.add('playing');
+                    button.innerHTML = '<i class="fas fa-pause"></i><span>⏸️ Pausar</span>';
+                    updateStatus('✅ Música reproduciéndose');
+                }).catch(error => {
+                    updateStatus('❌ Error música: ' + error.message);
+                });
+            } else {
+                audio.pause();
+                isMusicPlaying = false;
+                button.classList.remove('playing');
+                button.innerHTML = '<i class="fas fa-music"></i><span>🎵 Música</span>';
+                updateStatus('⏸️ Música pausada');
+            }
+        }
+        
+        function playVoiceNote() {
+            const voiceAudio = document.getElementById('voice-note');
+            const button = document.querySelector('.voice-button');
+            
+            updateStatus('🎤 Intentando reproducir nota de voz...');
+            
+            if (!voiceAudio) {
+                updateStatus('❌ Nota de voz no encontrada');
+                return;
+            }
+            
+            // Si ya está reproduciendo, detener
+            if (!voiceAudio.paused) {
+                voiceAudio.pause();
+                voiceAudio.currentTime = 0;
+                button.classList.remove('playing');
+                button.innerHTML = '<i class="fas fa-microphone"></i><span>🎤 Nota de Voz</span>';
+                updateStatus('⏹️ Nota de voz detenida');
+                return;
+            }
+            
+            // Reproducir nota de voz
+            voiceAudio.volume = 0.8;
+            voiceAudio.currentTime = 0;
+            
+            voiceAudio.play().then(() => {
+                button.classList.add('playing');
+                button.innerHTML = '<i class="fas fa-stop"></i><span>⏹️ Detener</span>';
+                updateStatus('🎤 Nota de voz reproduciéndose');
+            }).catch(error => {
+                updateStatus('❌ Error nota de voz: ' + error.message);
+                if (error.name === 'NotAllowedError') {
+                    alert('Haz click en cualquier parte de la página primero');
+                }
+            });
+        }
+        
+        // Verificar elementos al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('background-music');
+            const voiceAudio = document.getElementById('voice-note');
+            const musicButton = document.querySelector('.music-button');
+            const voiceButton = document.querySelector('.voice-button');
+            
+            updateStatus('✅ Página cargada - Verifica que veas ambos botones');
+            
+            // Eventos de audio
+            if (voiceAudio) {
+                voiceAudio.addEventListener('loadeddata', () => {
+                    updateStatus('✅ Archivo de nota de voz cargado');
+                });
+                
+                voiceAudio.addEventListener('error', (e) => {
+                    updateStatus('❌ Error al cargar archivo de nota de voz');
+                });
+                
+                voiceAudio.addEventListener('ended', () => {
+                    const button = document.querySelector('.voice-button');
+                    button.classList.remove('playing');
+                    button.innerHTML = '<i class="fas fa-microphone"></i><span>🎤 Nota de Voz</span>';
+                    updateStatus('✅ Nota de voz terminada');
+                });
+            }
+        });
+        
+        // Habilitar interacción
+        document.addEventListener('click', () => {
+            updateStatus('✅ Interacción de usuario detectada');
+        }, { once: true });
+    </script>
+</body>
+</html> 
