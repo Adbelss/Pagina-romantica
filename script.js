@@ -477,37 +477,56 @@ addPhotoToMemoryCard(4, 'fotos/celebraciones.jpg', 'Las Primeras Cartas', 'Cada 
 addPhotoToMemoryCard(5, 'fotos/futuro.jpg', 'Eres Mi Compañera', 'Contigo quiero construir un futuro hermoso lleno de amor eterno...');
 
 // ========================================
-// CONTROL DE MÚSICA SIMPLE
+// CONTROL DE MÚSICA SIMPLE Y ROBUSTO
 // ========================================
 
 let isPlaying = false;
 
 // Función para reproducir música
 function playMusic() {
+    console.log('🎵 Función playMusic llamada');
+    
     const musicButton = document.querySelector('.music-button');
     const backgroundMusic = document.getElementById('background-music');
     
+    console.log('🎵 Botón encontrado:', musicButton);
+    console.log('🎵 Audio encontrado:', backgroundMusic);
+    
     if (!isPlaying) {
-        // Reproducir archivo sample.mp3
+        console.log('🎵 Intentando reproducir música...');
+        
         if (backgroundMusic) {
-            backgroundMusic.volume = 0.3;
-            backgroundMusic.play().then(() => {
-                isPlaying = true;
-                musicButton.classList.add('playing');
-                musicButton.innerHTML = '<i class="fas fa-pause"></i><span>⏸️ Pausar Música</span>';
-                console.log('✅ Música sample.mp3 reproduciéndose');
-            }).catch(error => {
-                console.error('❌ Error al reproducir sample.mp3:', error);
-                alert('No se pudo reproducir la música. Verifica que el archivo music/sample.mp3 esté disponible.');
-            });
+            try {
+                backgroundMusic.volume = 0.3;
+                backgroundMusic.currentTime = 0; // Reiniciar al inicio
+                
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('✅ Música sample.mp3 reproduciéndose exitosamente');
+                        isPlaying = true;
+                        musicButton.classList.add('playing');
+                        musicButton.innerHTML = '<i class="fas fa-pause"></i><span>⏸️ Pausar Música</span>';
+                    }).catch(error => {
+                        console.error('❌ Error al reproducir sample.mp3:', error);
+                        alert('Error al reproducir música: ' + error.message);
+                    });
+                }
+            } catch (error) {
+                console.error('❌ Error en try-catch:', error);
+                alert('Error inesperado: ' + error.message);
+            }
         } else {
+            console.error('❌ Elemento de audio no encontrado');
             alert('Elemento de audio no encontrado. Verifica que el archivo music/sample.mp3 esté disponible.');
         }
     } else {
-        // Pausar música
+        console.log('⏸️ Pausando música...');
+        
         if (backgroundMusic) {
             backgroundMusic.pause();
-            console.log('⏸️ Música pausada');
+            console.log('⏸️ Música pausada exitosamente');
         }
         
         isPlaying = false;
@@ -518,24 +537,33 @@ function playMusic() {
 
 // Configurar eventos cuando la página carga
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('✅ Página cargada, música sample.mp3 lista para activar');
+    console.log('✅ Página cargada, configurando música...');
     
     const backgroundMusic = document.getElementById('background-music');
     
     if (backgroundMusic) {
+        console.log('✅ Elemento de audio encontrado');
+        
         // Configurar eventos del archivo de audio
         backgroundMusic.addEventListener('loadeddata', () => {
             console.log('✅ Archivo sample.mp3 cargado correctamente');
         });
         
         backgroundMusic.addEventListener('error', (e) => {
-            console.log('❌ Error al cargar sample.mp3');
+            console.error('❌ Error al cargar sample.mp3:', e);
         });
         
         backgroundMusic.addEventListener('ended', () => {
             console.log('🔄 Archivo terminado, reiniciando...');
-            backgroundMusic.currentTime = 0;
-            backgroundMusic.play();
+            if (isPlaying) {
+                backgroundMusic.currentTime = 0;
+                backgroundMusic.play();
+            }
         });
+        
+        // Verificar que el archivo se pueda cargar
+        backgroundMusic.load();
+    } else {
+        console.error('❌ Elemento de audio no encontrado en DOMContentLoaded');
     }
 }); 
